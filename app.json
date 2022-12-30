@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "term3",
+    "slug": "term3",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/terminalIcon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/terminalIcon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/terminalIcon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.vitart.term3"
+    },
+    "web": {
+      "favicon": "./assets/terminalIcon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9d75cf07-9913-4238-9734-6ff6f274ffd6"
+      }
+    }
+  }
+}
