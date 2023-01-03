@@ -17,6 +17,7 @@ export default function MainScreen({ navigation, route }) {
   //const { itemId, otherParam } = route.params;
   const [barcode, setBarcode] = useState("");
   const [nomenred, setNomenred] = useState([]);
+  const [user, setUser] = useState([]);
   //const {nomenFind} = route.params;
 
   useEffect(() => {
@@ -27,15 +28,26 @@ export default function MainScreen({ navigation, route }) {
       const { userItem } = route.params;
       console.log(JSON.stringify(nomenFind));
       console.log(JSON.stringify(userItem));
-      // setNomenred(nomenFind);
+      
+      // устанавливаем номенклатуру
       if (nomenFind != undefined) {
         //   const nom = JSON.stringify(nomenFind);
-        console.log(nomenFind);
+        //console.log(nomenFind);
         setNomenred(nomenFind);
         //   console.log(nomenred);
       }
+
+      // устанавливаем пользователь
+      if (userItem != undefined) {
+        const user1 = JSON.stringify(userItem);
+        console.log(user1);
+        setUser(userItem);
+      }
+
     }
   }, [route]);
+
+
   // nomenred,
   // setNomenred,
   // barcode,
@@ -59,6 +71,7 @@ export default function MainScreen({ navigation, route }) {
       {/* <StatusBar /> */}
       {/* <Button title="Поиск" onPress={() => navigation.navigate("Find")} /> */}
       <View style={styles.vcenter}>
+        <Text>Пользователь: {user.name}</Text>
         <Barcode
           setVcode={setBarcode}
           scanvisible={scanvisible}
