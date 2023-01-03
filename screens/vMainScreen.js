@@ -6,7 +6,7 @@ import {
   View,
   SafeAreaView,
   Button,
-  Alert,
+  TextInput,
 } from "react-native";
 import Barcode from "../components/barcode";
 import NomenFind from "../components/NomenFind";
@@ -18,23 +18,24 @@ export default function MainScreen({ navigation, route }) {
   const [barcode, setBarcode] = useState("");
   const [nomenred, setNomenred] = useState([]);
   //const {nomenFind} = route.params;
-  
+
   useEffect(() => {
     // console.log("открытие главной 2");
-    // console.log(route.params);
+    console.log("сработал роут");
     if (route.params != undefined) {
-      //const {nomenFind} = route.params;
-      // console.log(JSON.stringify(nomenFind));
+      const { nomenFind } = route.params;
+      const { userItem } = route.params;
+      console.log(JSON.stringify(nomenFind));
+      console.log(JSON.stringify(userItem));
       // setNomenred(nomenFind);
-      // if (nomenFind != []) {
-      //   const nom = JSON.stringify(nomenFind);
-      //   console.log(nom);
-      //   setNomenred(nomenFind);
-      //   console.log(nomenred);
-
-      // }
+      if (nomenFind != undefined) {
+        //   const nom = JSON.stringify(nomenFind);
+        console.log(nomenFind);
+        setNomenred(nomenFind);
+        //   console.log(nomenred);
+      }
     }
-  }, []);
+  }, [route]);
   // nomenred,
   // setNomenred,
   // barcode,
@@ -54,9 +55,9 @@ export default function MainScreen({ navigation, route }) {
   }, []);
 
   return (
-    <View style={styles.vcontainer}>
+    <SafeAreaView style={styles.vcontainer}>
       {/* <StatusBar /> */}
-      <Button title="Поиск" onPress={() => navigation.navigate("Find")} />
+      {/* <Button title="Поиск" onPress={() => navigation.navigate("Find")} /> */}
       <View style={styles.vcenter}>
         <Barcode
           setVcode={setBarcode}
@@ -64,9 +65,7 @@ export default function MainScreen({ navigation, route }) {
           setScan={setScaned}
         />
         <Button title="Обновить" onPress={visScan} />
-        <Text>
-          Штрихкод: {"\n"} {barcode}
-        </Text>
+        <Text>Сканированный Штрихкод: {barcode}</Text>
         <Text>
           <NomenFind
             Barcode={barcode}
@@ -75,21 +74,15 @@ export default function MainScreen({ navigation, route }) {
           />
         </Text>
       </View>
-      <View style={styles.vcontainer2}>
-        <View style={styles.vleft}>
-          <Text>Поиск по штрихкоду</Text>
-          <SetNomenBarcode
-            barcode={barcode}
-            nomenred={nomenred}
-            setNomenred={setNomenred}
-          />
-        </View>
-        <View style={styles.vleft}>
-          <Text>
+      <View style={styles.vRow}>
+        <View style={styles.vLeft}>
+          <Text>Выбранный товар:</Text>
+
+          <Text style={styles.vBorder}>
             {"     "}
             {nomenred.name}
             {"\n"}
-            !!!: {nomenred.comment}
+            {nomenred.comment}
             {"\n"}
             штрихкод: {nomenred.barcode}
             {"\n"}
@@ -97,11 +90,23 @@ export default function MainScreen({ navigation, route }) {
             {"\n"}
             ЦЕНА: {nomenred.price}
           </Text>
+          <View style={styles.vRowB}>
+            <Button title=" - " onPress={() => {}} />
+            <TextInput style={styles.vBorder} value={0} onChangeText={() => {}} placeholder="0" keyboardType = "numeric"/>
+            <Button title=" + " onPress={() => {}} />
+          </View>
         </View>
-
-        {/* <Button title="Поиск" onPress={() => navigation.navigate("Find")} /> */}
+        <View style={styles.vRight}>
+          <SetNomenBarcode
+            barcode={barcode}
+            nomenred={nomenred}
+            setNomenred={setNomenred}
+          />
+          <Button title="Поиск" onPress={() => navigation.navigate("Find")} />
+          <Button title="Инвентаризация" onPress={() => navigation.navigate("Stocktaking")} />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -110,23 +115,54 @@ const styles = StyleSheet.create({
     flex: 1,
     //backgroundColor: "#808080",
     //justifyContent: "center",
-    //alignItems: "center",
+    alignItems: "center",
   },
   vcontainer2: {
     flex: 1,
-    backgroundColor: "#fff500",
+    backgroundColor: "#fff",
     //justifyContent: "center",
     //alignItems: "center",
   },
+
+  vRow: {
+    flex: 1,
+    //justifyContent: "space-around",
+    // alignItems: "center",
+    flexDirection: "row",
+  },
+
+  vRowB: {
+    //flex: 1,
+    justifyContent: "center",
+    // alignItems: "center",
+    flexDirection: "row",
+  },
+
+  vLeft: {
+    flex: 1,
+    //justifyContent: "center",
+    //alignItems: "center",
+    flexDirection: "column",
+  },
+  vRight: {
+    flex: 0.2,
+    //justifyContent: "space-around",
+    //alignItems: "center",
+    flexDirection: "column",
+  },
+
   vcenter: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  vleft: {
-    flex: 1,
+
+  vBorder: {
+    borderRadius: 5,
+    borderWidth: 1,
+    padding: 2,
     //alignItems: "center",
     //justifyContent: "center",
-    left: 10,
+    //left: 10,
   },
 });

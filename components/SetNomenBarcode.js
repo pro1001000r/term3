@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Button, Alert } from "react-native";
 import axios from "axios";
 
 export default function SetNomenBarcode({ nomenred, setNomenred, barcode }) {
@@ -24,7 +24,7 @@ export default function SetNomenBarcode({ nomenred, setNomenred, barcode }) {
         .then(function (response) {
           //setNomenred(response.data);
           console.log(response.data);
-          setMess(response.data);
+          Alert.alert(response.data);
         })
         .catch(function (error) {
           console.log('error');
@@ -41,7 +41,7 @@ export default function SetNomenBarcode({ nomenred, setNomenred, barcode }) {
           AddBarcode();
         }}
       />
-      <Text>{mess}</Text>
+      {/* <Text>{mess}</Text> */}
     </View>
   );
 }

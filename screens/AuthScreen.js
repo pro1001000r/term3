@@ -27,7 +27,8 @@ export default function MainScreen({ navigation, route }) {
         //setNomen(response.data);
         console.log(response.data);
         if (response.data != null){
-            navigation.navigate("Main");
+          let userItem = response.data;
+            navigation.navigate("Main",{userItem: userItem});
         }
       })
       .catch(function (error) {
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "90%",
     height: "50%",
-    container: "contain",
+    resizeMode: "contain",
   },
   vButton: {
     flex: 1,

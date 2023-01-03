@@ -44,7 +44,7 @@ export default function FindScreen({ navigation }) {
 
   const vRenderMap = ({ item }) => (
     <View>
-      <TouchableOpacity
+      <TouchableOpacity style={styles.vText}
         onPress={() => {
           // console.log("------------");
           //console.log(item);
@@ -54,18 +54,15 @@ export default function FindScreen({ navigation }) {
         }}
       >
         <Text>
-          {"     "}
           {item.name}
           {"\n"}
-          ------- {item.comment}
+          {item.comment}
           {"\n"}
           кодБЭСТ: {item.code1c}
           {"\n"}
           штрихкод: {item.barcode}
           {"\n"}
           ЦЕНА: {item.price}
-          {"\n"}
-          --------------------------------------------------
         </Text>
       </TouchableOpacity>
     </View>
@@ -73,17 +70,6 @@ export default function FindScreen({ navigation }) {
 
   return (
     <View style={styles.vcontainer}>
-      <View>
-        <Text>
-          Сейчас выбрано:
-          {"\n"}
-          {nomenred.code1c}
-          {"\n"}
-          {nomenred.comment}
-          {"\n"}
-          {nomenred.price}
-        </Text>
-      </View>
       <View style={styles.vcontainer2}>
         <View style={styles.vleft}>
           {nomen.length ? (
@@ -116,17 +102,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   vcontainer2: {
-    flex: 0.9,
-    backgroundColor: "#ace5ee",
+    flex: 1,
+    //backgroundColor: "#fff",
     //justifyContent: "center",
     //alignItems: "center",
   },
   vfind: {
-    flex: 0.1,
+    //flex: 0.1,
     // width: 100,
   },
   vleft: {
     flex: 1,
+    //alignItems: "center",
+    //justifyContent: "center",
+    //left: 10,
+  },
+  vText: {
+    borderRadius: 5, 
+    borderWidth: 1, 
+    margin: 2,
     //alignItems: "center",
     //justifyContent: "center",
     //left: 10,

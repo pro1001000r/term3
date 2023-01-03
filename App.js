@@ -11,6 +11,7 @@ import {
 import MainScreen from "./screens/vMainScreen";
 import FindScreen from "./screens/vFindScreen";
 import AuthScreen from "./screens/AuthScreen";
+import StockScreen from "./screens/StockScreen";
 //import { createStackNavigator } from "@react-navigation/stack";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -39,12 +40,17 @@ export default function App() {
          <Stack.Screen
           name="Main"
           component={MainScreen}
-          options={{ title: "Главная" }}
+          options={{ title: "Главная" ,headerBackVisible: false,}}
         />
         <Stack.Screen
           name="Find"
           component={FindScreen}
           options={{ title: "Поиск" }}
+        />
+        <Stack.Screen
+          name="Stocktaking"
+          component={StockScreen}
+          options={{ title: "Инвентаризация" }}
         />
 
         <Stack.Screen name="Home" component={HomeScreen} />
