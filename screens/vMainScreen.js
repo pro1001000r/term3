@@ -13,26 +13,32 @@ import NomenFind from "../components/NomenFind";
 import SetNomenBarcode from "../components/SetNomenBarcode";
 import GetUser from "../components/GetUser";
 import GetName from "../components/GetName";
+import SetStocktaking from "../components/SetStocktaking";
+import GetCount from "../components/GetCount";
 
 export default function MainScreen({ navigation, route }) {
- 
   const [barcode, setBarcode] = useState("");
   const [nomenred, setNomenred] = useState([]);
   const [user, setUser] = useState([]);
   const [userparams, setUserparams] = useState([]);
- 
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
-   
     console.log("сработал роут");
     if (route.params != undefined) {
       const { nomenFind } = route.params;
       const { userItem } = route.params;
       //console.log(JSON.stringify(nomenFind));
       //console.log(JSON.stringify(userItem));
-      
+
       // устанавливаем номенклатуру
       if (nomenFind != undefined) {
         setNomenred(nomenFind);
+
+        SetStocktaking(userparams, nomenFind, 1);
+        console.log(userparams); //вывод
+        console.log(nomenFind); //вывод
+        GetCount(userparams.box_id,nomenFind.id,setCountN);
       }
 
       // устанавливаем пользователь
@@ -41,17 +47,38 @@ export default function MainScreen({ navigation, route }) {
         //console.log(user1);
         setUser(userItem);
         console.log(userItem.id); //вывод
-        GetUser(userItem.id,setUserparams);
+        GetUser(userItem.id, setUserparams);
       }
-
     }
   }, [route]);
-
 
   // nomenred,
   // setNomenred,
   // barcode,
   // setBarcode,
+
+  const setCountN = (arg) => {
+    setCount(Number(arg));
+  };
+
+  const CountPlus = () => {
+    let col = count;
+    setCount(count+1);
+    console.log(count); //вывод
+    SetStocktaking(userparams, nomenred, count);
+  };
+
+  const CountMinus = () => {
+    let col = count;
+    setCount(count-1);
+    console.log(count); //вывод
+    SetStocktaking(userparams, nomenred, count);
+  };
+
+  const CountRed = () => {
+    console.log(count); //вывод
+    SetStocktaking(userparams, nomenred, count);
+  };
 
   const [scaned, setScaned] = useState(false);
   const [scanvisible, setScanvisible] = useState(true);
@@ -71,14 +98,12 @@ export default function MainScreen({ navigation, route }) {
       <StatusBar />
       {/* <Button title="Поиск" onPress={() => navigation.navigate("Find")} /> */}
       <View style={styles.vcenter}>
-
-        <Text>Пользователь: {user.name} 
-        Склад: <GetName table = "storage" id={userparams.storage_id}/>
-        Место: <GetName table = "box" id={userparams.box_id}/>
-        
-        
+        <Text>
+          Пользователь: {user.name}
+          Склад: <GetName table="storage" id={userparams.storage_id} />
+          Место: <GetName table="box" id={userparams.box_id} />
         </Text>
-        
+
         <Barcode
           setVcode={setBarcode}
           scanvisible={scanvisible}
@@ -111,9 +136,16 @@ export default function MainScreen({ navigation, route }) {
             ЦЕНА: {nomenred.price}
           </Text>
           <View style={styles.vRowB}>
-            <Button title=" - " onPress={() => {}} />
-            <TextInput style={styles.vBorder} value={0} onChangeText={() => {}} placeholder="0" keyboardType = "numeric"/>
-            <Button title=" + " onPress={() => {}} />
+            <Button title=" - " onPress={() => CountMinus()} />
+            <TextInput
+              style={styles.vBorder}
+              value={count}
+              onChangeText={(text)=>setCountN(text)}
+              onSubmitEditing={CountRed}
+              placeholder={String(count)}
+              keyboardType="numeric"
+            />
+            <Button title=" + " onPress={() => CountPlus()} />
           </View>
         </View>
         <View style={styles.vRight}>
@@ -123,8 +155,14 @@ export default function MainScreen({ navigation, route }) {
             setNomenred={setNomenred}
           />
           <Button title="Поиск" onPress={() => navigation.navigate("Find")} />
-          <Button title="Инвентаризация" onPress={() => navigation.navigate("Stocktaking")} />
-          <Button title="Настройки" onPress={() => navigation.navigate("User")} />
+          <Button
+            title="Инвентаризация"
+            onPress={() => navigation.navigate("Stocktaking")}
+          />
+          <Button
+            title="Настройки"
+            onPress={() => navigation.navigate("User")}
+          />
         </View>
       </View>
     </SafeAreaView>

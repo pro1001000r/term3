@@ -56,12 +56,18 @@ const StockScreen = () => {
           {item.nomen_id}
           <GetName table = "nomen" id={item.nomen_id}/>
           {"\n"}
-          {/* кодБЭСТ: <GetName "users,users_id/> */}
+          Пользователь:
           <GetName table = "users" id={item.users_id}/>
           {"\n"}
-          штрихкод: {item.comment}
+          Склад:
+          <GetName table = "storage" id={item.storage_id}/>
           {"\n"}
-          ЦЕНА: {item.count}
+          Место:
+          <GetName table = "box" id={item.box_id}/>
+          {"\n"}
+          Комментарий: {item.comment}
+          {"\n"}
+          Количество: {item.count}
         </Text>
       </TouchableOpacity>
     </View>

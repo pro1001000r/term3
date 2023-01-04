@@ -2,21 +2,26 @@ import axios from "axios";
 import React, { useEffect, useImperativeHandle, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function SetStocktaking(user, nomen, count) {
+export default function SetStocktaking(userparams, nomen, count) {
   //Получаем все параметры:
-  if (user == undefined || nomen == undefined || count == undefined) {
+  if (userparams == undefined || nomen == undefined || count == undefined) {
     return;
   }
 
+  console.log(userparams); //вывод
+  console.log(nomen); //вывод
+
   const data = {
     stocktaking: {
-      userid: user.userid,
-      storageid: user.storageid,
-      boxid: user.boxid,
+      userid: userparams.users_id,
+      storageid: userparams.storage_id,
+      boxid: userparams.box_id,
       nomenid: nomen.id,
       count: count,
     },
   };
+
+  console.log(data); //вывод
 
   const config = {
     headers: {
