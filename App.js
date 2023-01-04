@@ -58,8 +58,6 @@ export default function App() {
           component={UserScreen}
           options={{ title: "Личный кабинет" }}
         />
-
-        <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,12 +10,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
+import GetName from "../components/GetName";
+
 
 const StockScreen = () => {
+  const [stock, setStock] = useState([]);
 
-    const [stock,setStock]  = useState([]);
-
-  const getStocktaking = (vt) => {
+  const getStocktaking = () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -50,20 +51,24 @@ const StockScreen = () => {
         }}
       >
         <Text>
-          {item.name}
+          {item.date}
           {"\n"}
-          {item.comment}
+          {item.nomen_id}
+          <GetName table = "nomen" id={item.nomen_id}/>
           {"\n"}
-          кодБЭСТ: {item.code1c}
+          {/* кодБЭСТ: <GetName "users,users_id/> */}
+          <GetName table = "users" id={item.users_id}/>
           {"\n"}
-          штрихкод: {item.barcode}
+          штрихкод: {item.comment}
           {"\n"}
-          ЦЕНА: {item.price}
+          ЦЕНА: {item.count}
         </Text>
       </TouchableOpacity>
     </View>
   );
-
+  useEffect(() => {
+    getStocktaking();
+  }, []);
   return (
     <View>
       <FlatList

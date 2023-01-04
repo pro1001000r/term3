@@ -29,9 +29,7 @@ export default function MainScreen({ navigation, route }) {
       
       // устанавливаем номенклатуру
       if (nomenFind != undefined) {
-        //   const nom = JSON.stringify(nomenFind);
-        //console.log(nomenFind);
-        //   console.log(nomenred);
+        setNomenred(nomenFind);
       }
 
       // устанавливаем пользователь
@@ -70,7 +68,7 @@ export default function MainScreen({ navigation, route }) {
       <View style={styles.vcenter}>
 
         <Text>Пользователь: {user.name}</Text>
-        <Button title="Пользователь" onPress={() => navigation.navigate("User")} />
+        
         <Barcode
           setVcode={setBarcode}
           scanvisible={scanvisible}
@@ -116,6 +114,7 @@ export default function MainScreen({ navigation, route }) {
           />
           <Button title="Поиск" onPress={() => navigation.navigate("Find")} />
           <Button title="Инвентаризация" onPress={() => navigation.navigate("Stocktaking")} />
+          <Button title="Настройки" onPress={() => navigation.navigate("User")} />
         </View>
       </View>
     </SafeAreaView>
