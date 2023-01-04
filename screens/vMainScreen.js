@@ -11,12 +11,15 @@ import {
 import Barcode from "../components/barcode";
 import NomenFind from "../components/NomenFind";
 import SetNomenBarcode from "../components/SetNomenBarcode";
+import GetUser from "../components/GetUser";
+import GetName from "../components/GetName";
 
 export default function MainScreen({ navigation, route }) {
  
   const [barcode, setBarcode] = useState("");
   const [nomenred, setNomenred] = useState([]);
   const [user, setUser] = useState([]);
+  const [userparams, setUserparams] = useState([]);
  
   useEffect(() => {
    
@@ -35,8 +38,10 @@ export default function MainScreen({ navigation, route }) {
       // устанавливаем пользователь
       if (userItem != undefined) {
         const user1 = JSON.stringify(userItem);
-        console.log(user1);
+        //console.log(user1);
         setUser(userItem);
+        console.log(userItem.id); //вывод
+        GetUser(userItem.id,setUserparams);
       }
 
     }
@@ -63,11 +68,16 @@ export default function MainScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.vcontainer}>
-      {/* <StatusBar /> */}
+      <StatusBar />
       {/* <Button title="Поиск" onPress={() => navigation.navigate("Find")} /> */}
       <View style={styles.vcenter}>
 
-        <Text>Пользователь: {user.name}</Text>
+        <Text>Пользователь: {user.name} 
+        Склад: <GetName table = "storage" id={userparams.storage_id}/>
+        Место: <GetName table = "box" id={userparams.box_id}/>
+        
+        
+        </Text>
         
         <Barcode
           setVcode={setBarcode}

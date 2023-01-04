@@ -3,6 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import axios from "axios";
 
 export default function GetName({ table, id }) {
+  if (id == undefined) {
+    return;
+  }
   const [name, setName] = useState("");
   const getname = () => {
     const config = {
@@ -22,11 +25,10 @@ export default function GetName({ table, id }) {
       .catch(function (error) {
         console.log(error);
       });
-    return <Text></Text>;
   };
   useEffect(() => {
     getname();
   }, []);
 
-  return <Text>{name}</Text>;
+  return name;
 }
