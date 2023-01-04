@@ -13,27 +13,24 @@ import NomenFind from "../components/NomenFind";
 import SetNomenBarcode from "../components/SetNomenBarcode";
 
 export default function MainScreen({ navigation, route }) {
-  //console.log(route);
-  //const { itemId, otherParam } = route.params;
+ 
   const [barcode, setBarcode] = useState("");
   const [nomenred, setNomenred] = useState([]);
   const [user, setUser] = useState([]);
-  //const {nomenFind} = route.params;
-
+ 
   useEffect(() => {
-    // console.log("открытие главной 2");
+   
     console.log("сработал роут");
     if (route.params != undefined) {
       const { nomenFind } = route.params;
       const { userItem } = route.params;
-      console.log(JSON.stringify(nomenFind));
-      console.log(JSON.stringify(userItem));
+      //console.log(JSON.stringify(nomenFind));
+      //console.log(JSON.stringify(userItem));
       
       // устанавливаем номенклатуру
       if (nomenFind != undefined) {
         //   const nom = JSON.stringify(nomenFind);
         //console.log(nomenFind);
-        setNomenred(nomenFind);
         //   console.log(nomenred);
       }
 
@@ -71,7 +68,9 @@ export default function MainScreen({ navigation, route }) {
       {/* <StatusBar /> */}
       {/* <Button title="Поиск" onPress={() => navigation.navigate("Find")} /> */}
       <View style={styles.vcenter}>
+
         <Text>Пользователь: {user.name}</Text>
+        <Button title="Пользователь" onPress={() => navigation.navigate("User")} />
         <Barcode
           setVcode={setBarcode}
           scanvisible={scanvisible}

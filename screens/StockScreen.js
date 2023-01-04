@@ -23,7 +23,7 @@ const StockScreen = () => {
       },
     };
 
-    const apiUrl = "http://terminal17.ru/Ajax/Obmen/}";
+    const apiUrl = "http://terminal17.ru/Ajax/Obmen/";
     const data = { getstocktaking: 1 };
 
     axios

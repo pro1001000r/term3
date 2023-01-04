@@ -16,6 +16,7 @@ import StockScreen from "./screens/StockScreen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import UserScreen from "./screens/UserScreen";
 
 //const Stack = createStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -51,6 +52,11 @@ export default function App() {
           name="Stocktaking"
           component={StockScreen}
           options={{ title: "Инвентаризация" }}
+        />
+        <Stack.Screen
+          name="User"
+          component={UserScreen}
+          options={{ title: "Личный кабинет" }}
         />
 
         <Stack.Screen name="Home" component={HomeScreen} />
