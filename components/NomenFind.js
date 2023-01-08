@@ -8,6 +8,7 @@ import {
   Alert,
   FlatList,
   TouchableOpacity,
+  Vibration,
 } from "react-native";
 import VitInput from "./vinput";
 
@@ -36,6 +37,7 @@ export default function NomenFind({ Barcode, setNomenred, scaned}) {
 
         if (res['error'] == true) {
           //alert("не найдено товара");
+          Vibration.vibrate(800);
           setMess("Не найдено товара");
         } else {
           setNomenred(res);

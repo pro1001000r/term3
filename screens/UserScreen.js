@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 
-export default function UserScreen() {
+export default function UserScreen({ navigation }) {
   const Func = (arg) => {
     const config = {
       headers: {
@@ -24,16 +24,26 @@ export default function UserScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Новый модуль</Text>
+    <View style={styles.vcontainer}>
+      <View style={styles.vcontainer}>
+        <Text>Новый модуль</Text>
+      </View>
+      <View>
+        <Button
+          title="на главную"
+          onPress={() => {
+            navigation.navigate("Main");
+          }}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  vcontainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    //alignItems: "center",
   },
 });

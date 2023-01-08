@@ -40,11 +40,13 @@ const styles = StyleSheet.create({
     //flex:1,
     margin: 2,
     flexDirection: "row",
+    justifyContent: "center",
     // left: 10,
   },
   text: {
     padding: 3,
     borderWidth: 2,
+    borderRadius: 5,
     width: 250,
     // height: 50,
     fontSize: 22,

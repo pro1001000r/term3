@@ -15,6 +15,7 @@ import GetUser from "../components/GetUser";
 import GetName from "../components/GetName";
 import SetStocktaking from "../components/SetStocktaking";
 import GetCount from "../components/GetCount";
+import GetNomen from "../components/GetNomen";
 
 export default function MainScreen({ navigation, route }) {
   const [barcode, setBarcode] = useState("");
@@ -22,6 +23,7 @@ export default function MainScreen({ navigation, route }) {
   const [user, setUser] = useState([]);
   const [userparams, setUserparams] = useState([]);
   const [count, setCount] = useState(0);
+  const [countText, setCountText] = useState("");
 
   useEffect(() => {
     console.log("сработал роут");
@@ -38,7 +40,8 @@ export default function MainScreen({ navigation, route }) {
         SetStocktaking(userparams, nomenFind, 1);
         console.log(userparams); //вывод
         console.log(nomenFind); //вывод
-        GetCount(userparams.box_id,nomenFind.id,setCountN);
+        setCount(count+1);
+        GetCount(userparams.box_id,nomenFind.id,count);
       }
 
       // устанавливаем пользователь
@@ -57,27 +60,26 @@ export default function MainScreen({ navigation, route }) {
   // barcode,
   // setBarcode,
 
-  const setCountN = (arg) => {
-    setCount(Number(arg));
-  };
-
   const CountPlus = () => {
     let col = count;
     setCount(count+1);
-    console.log(count); //вывод
-    SetStocktaking(userparams, nomenred, count);
+    console.log(col); //вывод
+    SetStocktaking(userparams, nomenred, count+1);
   };
 
   const CountMinus = () => {
     let col = count;
     setCount(count-1);
     console.log(count); //вывод
-    SetStocktaking(userparams, nomenred, count);
+    SetStocktaking(userparams, nomenred, count-1);
   };
 
   const CountRed = () => {
-    console.log(count); //вывод
-    SetStocktaking(userparams, nomenred, count);
+    console.log('Проверка'); //вывод
+    setCount(Number(countText));
+    SetStocktaking(userparams, nomenred, Number(countText));
+    setCountText(0);
+  
   };
 
   const [scaned, setScaned] = useState(false);
@@ -122,27 +124,17 @@ export default function MainScreen({ navigation, route }) {
       <View style={styles.vRow}>
         <View style={styles.vLeft}>
           <Text>Выбранный товар:</Text>
+          <GetNomen id={nomenred.id} />
 
-          <Text style={styles.vBorder}>
-            {"     "}
-            {nomenred.name}
-            {"\n"}
-            {nomenred.comment}
-            {"\n"}
-            штрихкод: {nomenred.barcode}
-            {"\n"}
-            кодБЭСТ: {nomenred.code1c}
-            {"\n"}
-            ЦЕНА: {nomenred.price}
-          </Text>
           <View style={styles.vRowB}>
             <Button title=" - " onPress={() => CountMinus()} />
+            <Text>{count}</Text>
             <TextInput
               style={styles.vBorder}
-              value={count}
-              onChangeText={(text)=>setCountN(text)}
+              value = {countText}
+              onChangeText={(text)=>setCountText(text)}
               onSubmitEditing={CountRed}
-              placeholder={String(count)}
+              placeholder={'0'}
               keyboardType="numeric"
             />
             <Button title=" + " onPress={() => CountPlus()} />

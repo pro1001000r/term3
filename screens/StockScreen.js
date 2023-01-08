@@ -12,8 +12,7 @@ import {
 import axios from "axios";
 import GetName from "../components/GetName";
 
-
-const StockScreen = () => {
+const StockScreen = ({ navigation }) => {
   const [stock, setStock] = useState([]);
 
   const getStocktaking = () => {
@@ -53,21 +52,23 @@ const StockScreen = () => {
         <Text>
           {item.date}
           {"\n"}
-          {item.nomen_id}
-          <GetName table = "nomen" id={item.nomen_id}/>
+          {/* {item.nomen_id} */}
+          <Text style={styles.vTextB}>
+            <GetName table="nomen" id={item.nomen_id} />
+          </Text>
           {"\n"}
           Пользователь:
-          <GetName table = "users" id={item.users_id}/>
+          <GetName table="users" id={item.users_id} />
           {"\n"}
           Склад:
-          <GetName table = "storage" id={item.storage_id}/>
+          <GetName table="storage" id={item.storage_id} />
           {"\n"}
           Место:
-          <GetName table = "box" id={item.box_id}/>
+          <GetName table="box" id={item.box_id} />
           {"\n"}
           Комментарий: {item.comment}
           {"\n"}
-          Количество: {item.count}
+          Количество: <Text style={styles.vTextB}>{item.count}</Text>
         </Text>
       </TouchableOpacity>
     </View>
@@ -76,19 +77,35 @@ const StockScreen = () => {
     getStocktaking();
   }, []);
   return (
-    <View>
-      <FlatList
-        data={stock}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => vRenderMap({ item })}
-      />
-    </View>
+    <SafeAreaView style={styles.vcontainer}>
+      <View style={styles.vcontainer}>
+        <FlatList
+          data={stock}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => vRenderMap({ item })}
+        />
+      </View>
+      <View>
+        <Button
+          title="на главную"
+          onPress={() => {
+            navigation.navigate("Main");
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default StockScreen;
 
 const styles = StyleSheet.create({
+  vcontainer: {
+    flex: 1,
+    //backgroundColor: "#808080",
+    justifyContent: "center",
+    //alignItems: "center",
+  },
   vRow: {
     flex: 1,
     justifyContent: "center",
@@ -102,5 +119,8 @@ const styles = StyleSheet.create({
     //alignItems: "center",
     //justifyContent: "center",
     //left: 10,
+  },
+  vTextB: {
+    fontWeight: "700",
   },
 });
