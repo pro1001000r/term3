@@ -1,18 +1,21 @@
 import axios from "axios";
 
-export default function GetCount(boxid, nomenid, setCount) {
+export default function SetUserParams(userparams) {
+    
   //Получаем все параметры:
-  if (boxid == undefined || nomenid == undefined) {
-    setCount(0);
-    return 0;
+  if (userparams == undefined) {
+    return;
   }
-  console.log(nomenid); //вывод
+
   const data = {
-      countstocktaking: {
-      boxid: boxid,
-      nomenid: nomenid,
+    mobileSetUserParams: {
+      users_id: userparams.users_id,
+      storage_id: userparams.storage_id,
+      box_id: userparams.box_id,
     },
   };
+
+  //console.log(data); //вывод
 
   const config = {
     headers: {
@@ -26,8 +29,7 @@ export default function GetCount(boxid, nomenid, setCount) {
   axios
     .post(apiUrl, data, config)
     .then(function (response) {
-      console.log(response.data); //вывод
-      setCount(response.data);
+      //console.log(response.data);
     })
     .catch(function (error) {
       console.log(error);

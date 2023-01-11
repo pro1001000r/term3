@@ -5,9 +5,9 @@ import { StyleSheet, Text, View, Button, Vibration } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 
-const Barcode = ({ setVcode, scanvisible, setScan }) => {
+const Barcode = ({ setVcode, scanvisible, setScan, isscan, setIsscan}) => {
   const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(true);
+  const [scanned, setScanned] = useState(true); //Смотрит сканировано ли
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -17,6 +17,17 @@ const Barcode = ({ setVcode, scanvisible, setScan }) => {
     setScan(false);
     getBarCodeScannerPermissions();
   }, []);
+
+  useEffect(() => {
+    console.log('Зашло');
+    console.log(isscan);
+    if (isscan == true){
+      setScanned(false);
+      setScan(true);
+
+      setIsscan(false);
+    }
+  }, [isscan]);
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);

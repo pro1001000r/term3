@@ -24,6 +24,11 @@ export default function MainScreen({ navigation, route }) {
   const [userparams, setUserparams] = useState([]);
   const [count, setCount] = useState(0);
   const [countText, setCountText] = useState("");
+  
+  const [isscan, setIsscan] = useState(false);
+  const [scaned, setScaned] = useState(false);
+  const [scanvisible, setScanvisible] = useState(true);
+  
 
   useEffect(() => {
     console.log("сработал роут");
@@ -51,6 +56,7 @@ export default function MainScreen({ navigation, route }) {
         setUser(userItem);
         console.log(userItem.id); //вывод
         GetUser(userItem.id, setUserparams);
+        console.log(userparams); //вывод
       }
     }
   }, [route]);
@@ -82,9 +88,6 @@ export default function MainScreen({ navigation, route }) {
   
   };
 
-  const [scaned, setScaned] = useState(false);
-  const [scanvisible, setScanvisible] = useState(true);
-
   const visScan = () => {
     const vscv = !scanvisible;
     setScanvisible(vscv);
@@ -110,6 +113,9 @@ export default function MainScreen({ navigation, route }) {
           setVcode={setBarcode}
           scanvisible={scanvisible}
           setScan={setScaned}
+          isscan = {isscan}
+          setIsscan = {setIsscan}
+
         />
         <Button title="Обновить" onPress={visScan} />
         <Text>Сканированный Штрихкод: {barcode}</Text>
@@ -146,14 +152,16 @@ export default function MainScreen({ navigation, route }) {
             nomenred={nomenred}
             setNomenred={setNomenred}
           />
+          <Button title="Скан" onPress={() => setIsscan(true)} />
+
           <Button title="Поиск" onPress={() => navigation.navigate("Find")} />
           <Button
-            title="Инвентаризация"
+            title="Инв"
             onPress={() => navigation.navigate("Stocktaking")}
           />
           <Button
-            title="Настройки"
-            onPress={() => navigation.navigate("User")}
+            title="Наст"
+            onPress={() => navigation.navigate("User", { userparams: userparams })}
           />
         </View>
       </View>

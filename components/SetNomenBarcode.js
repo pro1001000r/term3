@@ -36,7 +36,7 @@ export default function SetNomenBarcode({ nomenred, setNomenred, barcode }) {
   return (
     <View>
       <Button
-        title={"Добавить штрихкод"}
+        title={"+ штрих"}
         onPress={() => {
           AddBarcode();
         }}

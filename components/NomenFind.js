@@ -14,18 +14,17 @@ import VitInput from "./vinput";
 
 import axios from "axios";
 
-export default function NomenFind({ Barcode, setNomenred, scaned}) {
-  
+export default function NomenFind({ Barcode, setNomenred, scaned }) {
   const [vbar, setBar] = useState(null);
   const [mess, setMess] = useState(null);
-  
+
   const FindNomen = (vbarloc) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-  
+
     const apiUrl = "http://terminal17.ru/Ajax/Obmen/}";
     const data = { mobileFindBarcode: vbarloc };
 
@@ -35,7 +34,7 @@ export default function NomenFind({ Barcode, setNomenred, scaned}) {
         console.log(response.data);
         const res = response.data;
 
-        if (res['error'] == true) {
+        if (res["error"] == true) {
           //alert("не найдено товара");
           Vibration.vibrate(800);
           setMess("Не найдено товара");
@@ -44,18 +43,20 @@ export default function NomenFind({ Barcode, setNomenred, scaned}) {
           setMess(res.name);
         }
       })
-      .catch(function (error) {
-      });
+      .catch(function (error) {});
   };
 
   useEffect(() => {
-
     if (scaned) {
       //if (scaned && vbar != Barcode) {
-        setBar(Barcode);
+      setBar(Barcode);
       FindNomen(Barcode);
     }
   }, [Barcode]);
 
-  return <View><Text>{mess}</Text></View>;
+  return (
+    <View>
+      <Text>{mess}</Text>
+    </View>
+  );
 }
