@@ -24,7 +24,7 @@ export default function GetUser(userid,setUser) {
   axios
     .post(apiUrl, data, config)
     .then(function (response) {
-      console.log(response.data); //вывод
+      //console.log(response.data); //вывод
       setUser(response.data);
     })
     .catch(function (error) {

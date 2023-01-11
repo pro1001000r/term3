@@ -42,11 +42,13 @@ export default function MainScreen({ navigation, route }) {
       if (nomenFind != undefined) {
         setNomenred(nomenFind);
 
-        SetStocktaking(userparams, nomenFind, 1);
-        console.log(userparams); //вывод
-        console.log(nomenFind); //вывод
-        setCount(count+1);
-        GetCount(userparams.box_id,nomenFind.id,count);
+        GetCount(userparams.box_id,nomenFind.id,setCount);
+        
+        SetStocktaking(userparams, nomenFind, Number(count)+1);
+        //console.log(userparams); //вывод
+        //console.log(nomenFind); //вывод
+        //setCount(Number(count)+1);
+        GetCount(userparams.box_id,nomenFind.id,setCount);
       }
 
       // устанавливаем пользователь
@@ -54,8 +56,12 @@ export default function MainScreen({ navigation, route }) {
         const user1 = JSON.stringify(userItem);
         //console.log(user1);
         setUser(userItem);
-        console.log(userItem.id); //вывод
+        console.log("учетка - "); //вывод
+        console.log(userItem); //вывод
+
+        console.log("работает - " + userItem.id); //вывод
         GetUser(userItem.id, setUserparams);
+        console.log("параметры - "); //вывод
         console.log(userparams); //вывод
       }
     }
@@ -68,20 +74,20 @@ export default function MainScreen({ navigation, route }) {
 
   const CountPlus = () => {
     let col = count;
-    setCount(count+1);
-    console.log(col); //вывод
-    SetStocktaking(userparams, nomenred, count+1);
+    setCount(Number(count)+1);
+    //console.log(col); //вывод
+    SetStocktaking(userparams, nomenred, Number(count)+1);
   };
 
   const CountMinus = () => {
     let col = count;
     setCount(count-1);
     console.log(count); //вывод
-    SetStocktaking(userparams, nomenred, count-1);
+    SetStocktaking(userparams, nomenred, Number(count)-1);
   };
 
   const CountRed = () => {
-    console.log('Проверка'); //вывод
+    //console.log('Проверка'); //вывод
     setCount(Number(countText));
     SetStocktaking(userparams, nomenred, Number(countText));
     setCountText(0);
@@ -104,7 +110,7 @@ export default function MainScreen({ navigation, route }) {
       {/* <Button title="Поиск" onPress={() => navigation.navigate("Find")} /> */}
       <View style={styles.vcenter}>
         <Text>
-          Пользователь: {user.name}
+          Пользователь: <GetName table="users" id={user.id} />
           Склад: <GetName table="storage" id={userparams.storage_id} />
           Место: <GetName table="box" id={userparams.box_id} />
         </Text>
@@ -134,7 +140,7 @@ export default function MainScreen({ navigation, route }) {
 
           <View style={styles.vRowB}>
             <Button title=" - " onPress={() => CountMinus()} />
-            <Text>{count}</Text>
+            <Text style = {styles.vTextBig}>{count}</Text>
             <TextInput
               style={styles.vBorder}
               value = {countText}
@@ -147,13 +153,12 @@ export default function MainScreen({ navigation, route }) {
           </View>
         </View>
         <View style={styles.vRight}>
+        <Button title="Скан" onPress={() => setIsscan(true)} />
           <SetNomenBarcode
             barcode={barcode}
             nomenred={nomenred}
             setNomenred={setNomenred}
           />
-          <Button title="Скан" onPress={() => setIsscan(true)} />
-
           <Button title="Поиск" onPress={() => navigation.navigate("Find")} />
           <Button
             title="Инв"
@@ -220,6 +225,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     padding: 2,
+    //alignItems: "center",
+    //justifyContent: "center",
+    //left: 10,
+  },
+  vTextBig: {
+    fontWeight: "700",
+    fontSize: 28,
     //alignItems: "center",
     //justifyContent: "center",
     //left: 10,
