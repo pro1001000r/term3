@@ -13,8 +13,9 @@ import {
 import VitInput from "./vinput";
 
 import axios from "axios";
+import GetCount from "./GetCount";
 
-export default function NomenFind({ Barcode, setNomenred, scaned }) {
+export default function NomenFind({ Barcode, setNomenred, scaned, boxid, setCount}) {
   const [vbar, setBar] = useState(null);
   const [mess, setMess] = useState(null);
 
@@ -40,8 +41,10 @@ export default function NomenFind({ Barcode, setNomenred, scaned }) {
           setMess("Не найдено товара");
         } else {
           setNomenred(res);
+          GetCount(boxid,res.id,setCount);
           setMess(res.name);
         }
+        
       })
       .catch(function (error) {});
   };

@@ -27,7 +27,7 @@ export default function MainScreen({ navigation, route }) {
   
   const [isscan, setIsscan] = useState(false);
   const [scaned, setScaned] = useState(false);
-  const [scanvisible, setScanvisible] = useState(true);
+  const [scanvisible, setScanvisible] = useState(false);
   
 
   useEffect(() => {
@@ -65,6 +65,7 @@ export default function MainScreen({ navigation, route }) {
         console.log(userparams); //вывод
       }
     }
+    setScanvisible(false);
   }, [route]);
 
   // nomenred,
@@ -97,11 +98,13 @@ export default function MainScreen({ navigation, route }) {
   const visScan = () => {
     const vscv = !scanvisible;
     setScanvisible(vscv);
+    //setIsscan(vscv);
     setBarcode("");
   };
 
   useEffect(() => {
     setScaned(false);
+    setScanvisible(false);
   }, []);
 
   return (
@@ -130,6 +133,8 @@ export default function MainScreen({ navigation, route }) {
             Barcode={barcode}
             setNomenred={setNomenred}
             scaned={scaned}
+            boxid = {userparams.box_id}
+            setCount = {setCount}
           />
         </Text>
       </View>

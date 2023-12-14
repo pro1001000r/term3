@@ -1,6 +1,6 @@
 {
   "name": "term3.0",
-  "version": "1.0.0",
+  "version": "23.01.13",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
